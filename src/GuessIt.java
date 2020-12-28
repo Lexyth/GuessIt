@@ -77,13 +77,13 @@ public class GuessIt {
 		
 		if (win) return;
 		
-		try {
-			
-			guess = Integer.parseInt(input.getText());
+		String text = input.getText();
 		
-		} catch (NumberFormatException nfe) {
-			
-			error("submit() NumberFormatException");
+		if (!text.isEmpty() && text.matches("\\d*")) {
+			guess = Integer.parseInt(text);
+		} else {
+			labelAnswer.setText("Wrong input, only digits!");
+			return;
 		}
 		
 		if (rand<guess) {
@@ -96,9 +96,6 @@ public class GuessIt {
 			
 			labelAnswer.setText("You won! Reset to play again!");
 			win = true;
-		} else {
-			
-			error("submit() Idk what could cause this...");
 		}
 	}
 	
@@ -121,6 +118,7 @@ public class GuessIt {
 		
 		rand = (int)(Math.random()*100);
 		win = false;
+		labelAnswer.setText("");
 	}
 	
 	private static JLabel label (String text) {
@@ -138,8 +136,6 @@ public class GuessIt {
 			
 			panel.add(components[i]);
 		}
-		
-		
 		
 		return panel;
 	}
